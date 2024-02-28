@@ -7,6 +7,8 @@ import toast from 'react-hot-toast';
 const AllData = () => {
   const [cart, setCart] = useState([]);
   const [productsData, setProductsData] = useState([]);
+  const [allData, setAllData] = useState('');
+
 
   console.log(cart);
   let newCart = [];
@@ -67,6 +69,7 @@ const handleQuantity = (direction, product) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setAllData(data);
         setProductsData(data);
       });
   }, []);
@@ -78,7 +81,7 @@ const handleQuantity = (direction, product) => {
          console.log({ storedCart });
 
          const orderData = Object.keys(storedCart).map((id) => {
-           const addedProduct = productsData?.find((pd) => pd.id === id);
+           const addedProduct = allData?.find((pd) => pd.id === id);
            console.log({ addedProduct });
            if (addedProduct) {
              const quantity = storedCart[id];
@@ -107,7 +110,7 @@ const handleQuantity = (direction, product) => {
           handleAddToCart={handleAddToCart}
           cart={cart}
           setCart={setCart}
-          productsData={productsData}
+          productsData={allData}
           handleRemoveFromCart={handleRemoveFromCart}
           handleQuantity={handleQuantity}
         />
@@ -116,6 +119,7 @@ const handleQuantity = (direction, product) => {
         <Products
           handleAddToCart={handleAddToCart}
           productsData={productsData}
+          setProductsData={setProductsData}
         />
       </div>
     </div>

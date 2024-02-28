@@ -56,7 +56,9 @@ const ProductsCart = ({ product, handleAddToCart }) => {
             onClick={() => handleMoreView()}
             className=' block bg-violet-300 p-1 hover:bg-violet-500  cursor-pointer rounded-full opacity-0 group-hover:opacity-100 checked:opacity-100'
           >
+             <Link to='/ProductDetails'>
             <CgDetailsMore className=' w-6 h-6 lg:w-4 lg:h-4' />
+            </Link>
           </button>
           <button
             title='Quick view'
@@ -64,7 +66,9 @@ const ProductsCart = ({ product, handleAddToCart }) => {
             onClick={() => handleShortView()}
             className=' block bg-violet-300 p-1 hover:bg-violet-500  cursor-pointer rounded-full opacity-0 group-hover:opacity-100 checked:opacity-100'
           >
+            
             <FaEye className=' w-6 h-6 lg:w-4 lg:h-4' />
+            
           </button>
         </div>
       </div>

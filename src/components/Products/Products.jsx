@@ -3,15 +3,21 @@ import ProductsCart from './ProductsCart';
 import { BsUpcScan } from 'react-icons/bs';
 import { IoSearchSharp } from 'react-icons/io5';
 
+const Products = ({ handleAddToCart, cart, setProductsData, productsData }) => {
+  const [searchInput, setSearchInput] = useState('');
 
-const Products = ({handleAddToCart, cart, productsData}) => {
-  
   const handleSearchBar = (e) => {
     e.preventDefault();
     const searchByName = e.target.searchByProductName.value;
     console.log(searchByName);
+    setSearchInput(searchByName);
+    const filteredProducts = productsData.filter((product) =>
+      product.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setProductsData(filteredProducts);
   };
 
+  // Filter products based on search input
 
   return (
     <div>
@@ -36,13 +42,23 @@ const Products = ({handleAddToCart, cart, productsData}) => {
         </button>
       </form>
       <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5 lg:gap-8'>
-        {productsData?.slice(0, 15)?.map((product) => (
-          <ProductsCart
-            key={product._id}
-            product={product}
-            handleAddToCart={handleAddToCart}
-          />
-        ))}
+        {productsData?.length > 1 ? (
+          <>
+            {productsData?.slice(0, 15)?.map((product) => (
+              <ProductsCart
+                key={product._id}
+                product={product}
+                handleAddToCart={handleAddToCart}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <div className='w-full  flex justify-center items-center text-red-500 font-bold my-4'>
+              <p>No data found</p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
